@@ -323,7 +323,26 @@ namespace thug
 			m_keys['.'] = default_to_member(".-.-.-");
 			m_keys[','] = default_to_member("--..--");
 			m_keys['?'] = default_to_member("..--..");
+			m_keys['/'] = default_to_member("-..-.");
+			m_keys['('] = default_to_member("-.--.");
+			m_keys[')'] = default_to_member("-.--.-");
+			m_keys[':'] = default_to_member("---...");
+			m_keys['='] = default_to_member("-...-");
+			m_keys['+'] = default_to_member(".-.-.");
+			m_keys['-'] = default_to_member("-....-");
+			m_keys['@'] = default_to_member(".--.-.");
+			m_keys['\''] = default_to_member(".----.");
+			m_keys['\"'] = default_to_member(".-..-.");
+			m_keys['\\'] = default_to_member("-..-.");
+
 			m_keys[' '] = m_format.space;
+
+			// these are nonstandart
+			m_keys['!'] = default_to_member("-.-.--");
+			m_keys['&'] = default_to_member(".-...");
+			m_keys[';'] = default_to_member("-.-.-.");
+			m_keys['_'] = default_to_member("..--.-");
+			m_keys['$'] = default_to_member("...-..-");
 		}
 		std::unordered_map<char, std::string> m_keys;
 		morse_format m_format;
