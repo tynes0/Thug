@@ -46,9 +46,9 @@ namespace thug
 
 	struct morse_format
 	{
-		char long_press		= 0;
-		char short_press	= 0;
-		char space			= 0;
+		char long_press		= '-';
+		char short_press	= '.';
+		char space			= '/';
 
 		bool operator==(morse_format right) const noexcept
 		{
@@ -56,7 +56,7 @@ namespace thug
 		}
 	};
 
-	constexpr morse_format default_format = { '-', '.', '/' };
+	constexpr morse_format default_format{};
 
 	class morse_converter
 	{
@@ -175,16 +175,28 @@ namespace thug
 			return decode(ss.str());
 		}
 
-		// If it is plain text, encrypt it; if it is encrypted text, decrypt it.
-		std::string encrypyt_decrypyt(const std::string& text) const
+		std::string encrypt(const std::string& text) const
 		{
-			return detail::xor_encrypt_decrypt(text, m_encryption_key);
+			if (is_valid_morse(text))
+				return detail::xor_encrypt_decrypt(text, m_encryption_key);
+			return detail::xor_encrypt_decrypt(encode(text), m_encryption_key);
 		}
 
-		// If it is plain text, encrypt it; if it is encrypted text, decrypt it.
-		static std::string encrypyt_decrypyt(const std::string& text, const std::string& encryption_key)
+		std::string decrypt(const std::string& text) const
 		{
-			return detail::xor_encrypt_decrypt(text, encryption_key);
+			return decode(detail::xor_encrypt_decrypt(text, m_encryption_key));
+		}
+
+		std::string encrypt(const std::string& text, const std::string& encryption_key) const
+		{
+			if (is_valid_morse(text))
+				return detail::xor_encrypt_decrypt(text, encryption_key);
+			return detail::xor_encrypt_decrypt(encode(text), encryption_key);
+		}
+
+		std::string decrypt(const std::string& text, const std::string& encryption_key) const
+		{
+			return decode(detail::xor_encrypt_decrypt(text, encryption_key));
 		}
 
 		std::string default_to_member(const std::string& morse_text) const
