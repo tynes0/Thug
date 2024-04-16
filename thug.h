@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <sstream>
+#include <fstream>
 #include <vector>
 #include <unordered_map>
 
@@ -46,9 +47,9 @@ namespace thug
 
 	struct morse_format
 	{
-		char long_press		= '-';
-		char short_press	= '.';
-		char space			= '/';
+		char long_press = '-';
+		char short_press = '.';
+		char space = '/';
 
 		bool operator==(morse_format right) const noexcept
 		{
@@ -138,8 +139,15 @@ namespace thug
 				return std::string{};
 			for (auto& item : parsed_text)
 			{
+#if _HAS_CXX17
 				for (auto& [key, value] : m_keys)
 				{
+#else // _HAS_CXX17
+				for(auto& it : m_keys)
+				{
+					auto& key = it.first;
+					auto& value = it.second;
+#endif // _HAS_CXX17
 					if (value == item)
 					{
 						ss << key;
