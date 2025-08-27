@@ -18,7 +18,7 @@ A lightweight C++17+ header-only library for converting between **text** and **M
 ## 📦 Installation
 Simply include the header file in your project:
 
-    #include "morse_converter.h"
+    #include "thug.h"
 
 The library requires **C++17 or later**.
 
@@ -28,7 +28,7 @@ The library requires **C++17 or later**.
 
 ### Creating a Converter
 
-    #include "morse_converter.h"
+    #include "thug.h"
     #include <iostream>
 
     int main() {
